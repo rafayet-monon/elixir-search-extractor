@@ -1,0 +1,12 @@
+.layout-default {
+  > body {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+  }
+
+  .app-content {
+    flex: 1;
+    background: map-get($brand-gray, 'light');
+  }
+}
