@@ -1,11 +1,10 @@
-<div class="card-auth">
-  <div class="card-auth__form">
-    <div class="card-auth__title">
+<div class="card-form-group">
+  <div class="card-form-group__form">
+    <div class="card-form-group__title">
       <h4><%= dgettext("auth", "Change password!") %></h4>
     </div>
 
     <%= form_for @password_changeset, Routes.user_settings_path(@conn, :update), [class: "form form--horizontal"], fn f -> %>
-
       <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
       <div class="form__group required">
@@ -22,15 +21,19 @@
 
       <div class="form__group required">
         <%= label f, :current_password, dgettext("auth", "Current password"), for: "current_password_for_password" %>
-        <%= password_input f, :current_password, required: true, name: "current_password",
-            id: "current_password_for_password", class: "form__control" %>
+        <%= password_input(f, :current_password,
+              required: true,
+              name: "current_password",
+              id: "current_password_for_password",
+              class: "form__control"
+            ) %>
         <%= error_tag f, :current_password %>
       </div>
 
-      <%= submit dgettext("auth", "Change password"), class: "btn btn--primary card-auth__button" %>
+      <%= submit dgettext("auth", "Change password"), class: "btn btn--primary card-form-group__button" %>
     <% end %>
 
-    <div class="card-auth__footer">
+    <div class="card-form-group__footer">
       <%= dgettext("auth", "Go back to") %> <%= link "Dashboard!", to: Routes.page_path(@conn, :index) %>
     </div>
   </div>

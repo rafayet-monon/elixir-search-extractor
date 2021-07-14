@@ -63,7 +63,11 @@ defmodule ElixirSearchExtractor.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:nimble_template, "~> 3.0", only: :dev, runtime: false},
-      {:phx_gen_auth, "~> 0.7", only: :dev, runtime: false}
+      {:phx_gen_auth, "~> 0.7", only: :dev, runtime: false},
+      {:phoenix_pagination, "~> 0.7.0"},
+      {:floki, "~> 0.31.0"},
+      {:httpoison, "~> 1.8"},
+      {:nimble_csv, "~> 1.1"}
     ]
   end
 
@@ -86,7 +90,8 @@ defmodule ElixirSearchExtractor.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      prettier: "cmd ./assets/node_modules/.bin/prettier --write . --color"
     ]
   end
 

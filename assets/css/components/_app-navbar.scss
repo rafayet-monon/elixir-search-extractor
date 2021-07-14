@@ -39,6 +39,7 @@
   &__user-menu {
     @extend .card;
 
+    z-index: 1;
     position: absolute;
     top: $app-header-height;
     right: rem(24px);
@@ -68,5 +69,15 @@
       text-decoration: none;
       margin-bottom: rem(10px);
     }
+  }
+
+  &__keyword-file {
+    display: inline-flex;
+    margin-right: rem(20px);
+  }
+
+  &__keyword-file-menu {
+    text-decoration: none;
+    cursor: pointer;
   }
 }

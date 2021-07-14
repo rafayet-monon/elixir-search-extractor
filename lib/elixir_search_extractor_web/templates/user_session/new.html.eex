@@ -1,18 +1,18 @@
-<div class="card-auth">
-  <div class="card-auth__form">
-    <div class="card-auth__title">
+<div class="card-form-group">
+  <div class="card-form-group__form">
+    <div class="card-form-group__title">
       <h4><%= dgettext("auth", "Log in to Extractor!") %></h4>
     </div>
 
     <%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user, class: "form form--horizontal"], fn f -> %>
       <div class="form__group required">
-        <%= label f, :email, dgettext("auth", "Email")  %>
+        <%= label f, :email, dgettext("auth", "Email") %>
         <%= email_input f, :email, required: true, class: "form__control" %>
         <%= error_tag f, :email %>
       </div>
 
       <div class="form__group required">
-        <%= label f, :password, dgettext("auth", "Password")  %>
+        <%= label f, :password, dgettext("auth", "Password") %>
         <%= password_input f, :password, required: true, class: "form__control" %>
         <%= error_tag f, :password %>
       </div>
@@ -22,11 +22,12 @@
         <%= label f, :remember_me, dgettext("auth", "Keep me logged in for 60 days") %>
       </div>
 
-      <%= submit "Log in", class: "btn btn--primary card-auth__button" %>
+      <%= submit "Log in", class: "btn btn--primary card-form-group__button" %>
     <% end %>
 
-    <div class="card-auth__footer">
-      <%= dgettext("auth", "Create an account") %> <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+    <div class="card-form-group__footer">
+      <%= dgettext("auth", "Create an account") %>
+      <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
     </div>
   </div>
 </div>
