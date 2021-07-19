@@ -1,5 +1,6 @@
 defmodule ElixirSearchExtractorWeb.Router do
   use ElixirSearchExtractorWeb, :router
+  use PhoenixOauth2Provider.Router, otp_app: :elixir_search_extractor
 
   import ElixirSearchExtractorWeb.UserAuth
 
@@ -15,6 +16,33 @@ defmodule ElixirSearchExtractorWeb.Router do
   # coveralls-ignore-start
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :authenticated_api do
+    plug ExOauth2Provider.Plug.VerifyHeader, otp_app: :elixir_search_extractor, realm: "Bearer"
+    plug ExOauth2Provider.Plug.EnsureAuthenticated
+    plug ElixirSearchExtractorWeb.SetCurrentApiUserPlug
+  end
+
+  ## API routes
+
+  scope "/api/v1" do
+    pipe_through :api
+
+    oauth_api_routes()
+  end
+
+  scope "/api/v1", ElixirSearchExtractorWeb, as: :api_v1 do
+    pipe_through [:api, :authenticated_api]
+
+    resources "/keyword_files", Api.V1.KeywordFileController, only: [:create]
+    resources "/keywords", Api.V1.KeywordController, only: [:index, :show]
+  end
+
+  scope "/" do
+    pipe_through [:browser, :require_authenticated_user]
+
+    oauth_routes()
   end
 
   # coveralls-ignore-stop
